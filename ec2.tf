@@ -17,7 +17,6 @@ module "aws_instance" {
   sudo apt update -y
   sudo apt install apache2 -y
   echo "*** Completed Installing apache2
-  aws s3 cp s3://private-bucket-corgi/ /home/ec2-user/ --recursive"
   EOF
 
   tags = {
