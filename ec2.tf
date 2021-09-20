@@ -11,6 +11,16 @@ module "aws_instance" {
   vpc_security_group_ids = ["sg-0856c1a7968986b0f"]
   subnet_id              = "subnet-8e0e9fe5"
 
+  user_data = <<-EOF
+  #!/bin/bash
+  echo "*** Installing apache2"
+  sudo apt update -y
+  sudo apt install apache2 -y
+  echo "*** Completed Installing apache2
+  BUCKET_URL="private-bucket-corgi.s3-website.us-east-2.amazonaws.com"
+  s3 cp s3://private-bucket-corgi/ /home/ec2-user/ --recursive"
+  EOF
+
   tags = {
     Terraform   = "true"
     Environment = "dev"
