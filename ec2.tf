@@ -1,3 +1,8 @@
+provider "aws" {
+  profile = "default"
+  region = "us-east-2"
+}
+
 module "aws_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
