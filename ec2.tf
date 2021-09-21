@@ -3,8 +3,9 @@ resource "aws_instance" "corginstance" {
   instance_type          = "t2.micro"
   key_name               = "My_key"
   monitoring             = true
-  vpc_security_group_ids = ["sg-0856c1a7968986b0f"]
-  subnet_id              = "subnet-8e0e9fe5"
+  vpc_security_group_ids = ["sg-0b5469383489061bf"]
+  iam_instance_profile   = "S3CorgiRole" 
+  //subnet_id              = "subnet-8e0e9fe5"
 
   provisioner "file" {
     source      = "~/.aws/credentials"
@@ -25,14 +26,17 @@ resource "aws_instance" "corginstance" {
   
   user_data = <<-EOF
   #!/bin/bash
-  echo "*** Installing apache2"
-  sudo yum update -y
-  sudo yum install apache2 -y
-  echo "*** Completed Installing apache2
+  sudo su
+  yum update -y
+  yum -y install httpd
+  systemctl start httpd.service
+  systemctl enable httpd.service
+  aws s3 cp s3://private-bucket-corgi/corgi.html /var/www/html/index.html
   EOF
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
+    Name = "corginstance"
   }
 }
