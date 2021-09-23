@@ -5,7 +5,7 @@ resource "aws_launch_configuration" "corgi_config" {
   key_name               = "My_key"
   enable_monitoring      = true
   security_groups        = ["sg-0b5469383489061bf"]
-  iam_instance_profile   = "S3CorgiRole"
+  iam_instance_profile   = aws_iam_role.read_s3_role.name
   
   user_data = <<-EOF
   #!/bin/bash
