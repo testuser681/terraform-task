@@ -14,6 +14,6 @@ resource "aws_s3_bucket_object" "corgi" {
   key    = each.value
   acl    = "private"
   source = "./${each.value}"
-  etag = filemd5("./${each.value}")
+  etag   = filemd5("./${each.value}")
 
 }
