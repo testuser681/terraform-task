@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "private_bucket_corgi" {
-  bucket = "private-bucket-corgi"
+  bucket = var.bucket_name
   acl    = "private"
 
   tags = {
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "private_bucket_corgi" {
 }
 
 resource "aws_s3_bucket_object" "corgi" {
-  for_each = fileset(".", "corgi.html")
+  for_each = fileset(".", var.html_name)
   bucket = aws_s3_bucket.private_bucket_corgi.id
   key    = each.value
   acl    = "private"
