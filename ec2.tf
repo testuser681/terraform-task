@@ -16,7 +16,7 @@ resource "aws_launch_configuration" "corgi_config" {
   enable_monitoring      = true
   security_groups        = [aws_security_group.allow_http_ssh.id]
   iam_instance_profile   = aws_iam_instance_profile.s3_profile.name
-  user_data = base64encode(data.template_file.user_data.rendered)
+  user_data              = base64encode(data.template_file.user_data.rendered)
 }
 
 resource "aws_autoscaling_group" "corgi_scaling" {
