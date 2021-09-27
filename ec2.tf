@@ -14,7 +14,7 @@ resource "aws_launch_configuration" "corgi_config" {
   instance_type          = "t2.micro"
   key_name               = "My_key"
   enable_monitoring      = true
-  security_groups        = ["sg-0b5469383489061bf"]
+  security_groups        = [aws_security_group.allow_http_ssh.id]
   iam_instance_profile   = aws_iam_instance_profile.s3_profile.name
   
   user_data = <<-EOF
