@@ -1,19 +1,16 @@
-resource "aws_iam_policy" "read_s3_policy" {
-  policy = <<-EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:Get*",
-                "s3:List*"
-            ],
-            "Resource": "arn:aws:s3:::private-bucket-corgi/*"
-        }
+data "aws_iam_policy_document" "document" {
+  statement {
+    effect  = "Allow"
+    actions = [
+      "s3:Get*",
+      "s3:List*"
     ]
+    resources = [aws_s3_bucket.private_bucket_corgi.arn]
   }
-  EOF
+}
+
+resource "aws_iam_policy" "read_s3_policy" {
+  policy = data.aws_iam_policy_document.document.json
 } 
 
 resource "aws_iam_role" "read_s3_role" {
