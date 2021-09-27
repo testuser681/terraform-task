@@ -14,15 +14,15 @@ resource "aws_iam_policy" "read_s3_policy" {
 } 
 
 resource "aws_iam_role" "read_s3_role" {
-  name = "read-s3-role"
+  name                 = "read-s3-role"
   permissions_boundary = "arn:aws:iam::113304117666:policy/DefaultBoundaryPolicy"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+  assume_role_policy   = jsonencode({
+    Version   = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Sid       = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
