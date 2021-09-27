@@ -1,6 +1,16 @@
+data "aws_ami" "amazon-linux-2" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
+}
+
 resource "aws_launch_configuration" "corgi_config" {
   name                   = "corgi-config"
-  image_id               = "ami-00dfe2c7ce89a450b"
+  image_id               = data.aws_ami.amazon-linux-2.id
   instance_type          = "t2.micro"
   key_name               = "My_key"
   enable_monitoring      = true
